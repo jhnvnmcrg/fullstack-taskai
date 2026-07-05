@@ -19,6 +19,12 @@ function DashboardPage() {
           <h1 className="text-4xl font-bold">Dashboard</h1>
 
           <p className="mt-2 text-muted-foreground">Welcome to TaskPilot AI</p>
+
+          <div className="grid gap-6 lg:grid-cols-3">
+            <div className="lg:col-span-2">{/* Todo Feature */}</div>
+
+            <div>{/* AI Assistant */}</div>
+          </div>
         </DashboardLayout>
       </SignedIn>
     </>
