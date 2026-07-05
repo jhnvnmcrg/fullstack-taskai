@@ -1,8 +1,9 @@
+import { useState } from "react";
+import TodoEditDialog from "./TodoEditDialog";
 import type { Todo } from "@/types/todo";
-
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
-
+import { Pencil, Trash2 } from "lucide-react";
 import { useDeleteTodo, useToggleTodo } from "@/hooks/useTodos";
 
 interface Props {
@@ -12,6 +13,7 @@ interface Props {
 export default function TodoItem({ todo }: Props) {
   const toggle = useToggleTodo();
   const remove = useDeleteTodo();
+  const [open, setOpen] = useState(false);
 
   return (
     <div className="flex items-start justify-between rounded-lg border bg-white p-4">
@@ -41,13 +43,21 @@ export default function TodoItem({ todo }: Props) {
         </div>
       </div>
 
-      <Button
-        variant="destructive"
-        size="sm"
-        onClick={() => remove.mutate(todo.id)}
-      >
-        Delete
-      </Button>
+      <div className="flex gap-2">
+        <Button size="icon" variant="outline" onClick={() => setOpen(true)}>
+          <Pencil className="h-4 w-4" />
+        </Button>
+
+        <Button
+          size="icon"
+          variant="destructive"
+          onClick={() => remove.mutate(todo.id)}
+        >
+          <Trash2 className="h-4 w-4" />
+        </Button>
+      </div>
+
+      <TodoEditDialog todo={todo} open={open} onOpenChange={setOpen} />
     </div>
   );
 }
